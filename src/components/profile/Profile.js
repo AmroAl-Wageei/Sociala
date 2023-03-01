@@ -246,6 +246,7 @@ function Profile() {
                 
                 if(i===1){  
 
+                    
                     if(OneFriend['friend_id'] == current_ID &&  OneFriend['user_id'] == profile_id || OneFriend['friend_id'] == profile_id && OneFriend['user_id'] == current_ID || profile_id == current_ID)
                     {
                         return (
@@ -257,7 +258,7 @@ function Profile() {
                 <div className="profileRight">
                     <div className="profilerightTop">
                         <div className="profileCover">
-                            <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                            <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                             <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                         </div>
                         <div className="profileInfo">
@@ -277,7 +278,7 @@ function Profile() {
                     <div className="profileRight">
                         <div className="profilerightTop">
                             <div className="profileCover">
-                                <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                                <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                                 <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                             </div>
                             <div className="profileInfo">
@@ -299,7 +300,7 @@ function Profile() {
                     <div className="profileRight">
                         <div className="profilerightTop">
                             <div className="profileCover">
-                                <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                                <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                                 <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                             </div>
                             <div className="profileInfo">
@@ -317,7 +318,7 @@ function Profile() {
                     <div className="profileRight">
                         <div className="profilerightTop">
                             <div className="profileCover">
-                                <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                                <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                                 <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                             </div>
                             <div className="profileInfo">
@@ -333,7 +334,7 @@ function Profile() {
                     <div className="profileRight">
                             <div className="profilerightTop">
                                 <div className="profileCover">
-                                    <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                                    <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                                     <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                                 </div>
                                 <div className="profileInfo">
@@ -360,7 +361,7 @@ function Profile() {
                             <div className="profileRight">
                                 <div className="profilerightTop">
                                     <div className="profileCover">
-                                        <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                                        <img className='profileCoverImg' src="https://marketplace.canva.com/EAFHm4JWsu8/1/0/1600w/canva-pink-landscape-desktop-wallpaper-HGxdJA_xIx0.jpg" alt="" />
                                         <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                                     </div>
                                     <div className="profileInfo">

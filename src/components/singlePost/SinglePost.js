@@ -168,6 +168,22 @@ function SinglePost({ post }) {
     document.getElementById(`editCommentBTN${id}`).style.display = "none";
   };
 
+  const updatePostEdit = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    getPosts();
+  };
+
+  const updateCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = "block";
+    document.getElementById(`editCommentForm${id}`).style.display = "none";
+    document.getElementById(`editCommentBTN${id}`).style.display =
+      "inline-block";
+      getComments();
+      getPosts();
+  };
+
   const handleEditComment = (id) => {
     const comment_id = id;
     const value = document.getElementById(`editCommentInput${id}`).value;

@@ -231,6 +231,8 @@ export default function Post({ post }) {
 
   var flagLike = false;
   var like_count = 0;
+  var comment_count = 0;
+  var comment_count_show = 0;
 
   return (
     <div>
@@ -380,14 +382,15 @@ export default function Post({ post }) {
         </div>
 
         <div className="postCenter">
-          <span id={`post${post.post_id}`} className="postText">
+          <p id={`post${post.post_id}`} className="postText">
             {post.content}
-          </span>
+          </p>
           {post.post_image !== "a" ? (
             <img
               className="postImg"
               src={require(`../images/${post.post_image}`)}
               alt=""
+              style={{width : '50vw'}}
             />
           ) : null}
         </div>
@@ -451,7 +454,15 @@ export default function Post({ post }) {
               href={`/profile/${profile_id}/post/${post.post_id}`}
               className="postCommenttextLink"
             >
-              <span className="postCommenttext">Comments</span>
+              <p style={{ display: "none" }}>
+                                {(comment_count = 0)}
+                              </p>
+                              {comments.map((count) => {
+                                if (count.post_id == post.post_id) {
+                                  comment_count++;
+                                }
+                              })}
+              <span className="postCommenttext">Comments({comment_count})</span>
             </a>
           </div>
         </div>
