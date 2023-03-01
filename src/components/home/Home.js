@@ -49,7 +49,6 @@ function Home() {
         `http://localhost:80/platform/react_project/specificPosts.php/${current_ID}`
       )
       .then((response) => {
-        // console.log(response.data);
         setPosts(response.data);
         getLikes();
       })
@@ -83,8 +82,8 @@ function Home() {
         "http://localhost:80/platform/react_project/posts.php",
         formData
       );
-      // window.location.assign('/home');
-      getPosts();
+      window.location.assign('/home');
+      // getPosts();
     } catch (error) {
       console.error(error);
     }
@@ -198,12 +197,33 @@ function Home() {
     document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
     document.getElementById(`imgPost${id}`).style.display = "block";
   };
+  const updatePostEditImage = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    document.getElementById(`imgPost${id}`).style.display = "block";
+    getPosts();
+  };
+  const updatePostEdit = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    getPosts();
+  };
 
   const cancleCommentEdit = (id) => {
     document.getElementById(`comment${id}`).style.display = "block";
     document.getElementById(`editCommentForm${id}`).style.display = "none";
     document.getElementById(`editCommentBTN${id}`).style.display =
       "inline-block";
+  };
+  const updateCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = "block";
+    document.getElementById(`editCommentForm${id}`).style.display = "none";
+    document.getElementById(`editCommentBTN${id}`).style.display =
+      "inline-block";
+      getComments();
+      getPosts();
   };
 
   // Likes
@@ -387,7 +407,7 @@ function Home() {
                               </div>
                             ) : null}
                           </div>
-
+                              {post.content}
                           {post.post_image != "a" ? (
                             <div>
                               <p
@@ -419,7 +439,9 @@ function Home() {
                                   onChange={(e) => setFile(e.target.files[0])}
                                 />
 
-                                <button type="submit">Update</button>
+                                <button type="submit" onClick={() => {
+                                    updatePostEditImage(post.post_id);
+                                  }}>Update</button>
                                 <button
                                   style={{ background: "red", color: "white" }}
                                   onClick={() => {
@@ -468,7 +490,9 @@ function Home() {
 
                                 <br />
 
-                                <button type="submit">Update</button>
+                                <button type="submit" onClick={() => {
+                                    updatePostEdit(post.post_id);
+                                  }}>Update</button>
                                 <button
                                   style={{ background: "red", color: "white" }}
                                   onClick={() => {
@@ -659,7 +683,11 @@ function Home() {
                                               )
                                             }
                                           />
-                                          <button type="submit">Update</button>
+                                          <button type="submit"onClick={() => {
+                                              updateCommentEdit(
+                                                comment.comment_id
+                                              );
+                                            }}>Update</button>
                                           <button
                                             style={{
                                               background: "red",
@@ -875,7 +903,7 @@ function Home() {
           })}
         </div>
       </div>
-      //{" "}
+      {" "}
     </div>
   );
 }

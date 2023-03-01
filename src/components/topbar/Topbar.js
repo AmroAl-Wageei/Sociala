@@ -10,41 +10,56 @@ import axios from "axios";
 import "./Topbar.css";
 
 const Topbar = () => {
-  const { profile_id } = useParams();
-  const [user, setUser] = useState([]);
-  const current_ID = JSON.parse(localStorage.getItem("id"));
+  const {profile_id} = useParams();
+  const [user , setUser] = useState([]);
+  const current_ID = JSON.parse(localStorage.getItem('id'));
+  const [friendRequests , setFriendReq] = useState([]);
 
-  useEffect(() => {
+  useEffect(()=>{
     getUser();
-  }, []);
+    getFriendsRequests();
+  } , [])
 
-  function getUser() {
-    axios
-      .get(
-        `http://localhost:80/platform/react_project/userProfile.php/${current_ID}`
-      )
-      .then((response) => {
+  function getUser(){
+    axios.get(`http://localhost:80/platform/react_project/userProfile.php/${current_ID}`)
+    .then(response => {
         setUser(response.data);
-      });
-
-
+    })
   }
+
+  const getFriendsRequests = () => {
+    axios.get(`http://localhost:80/platform/react_project/profileShowFriendRequests.php/${current_ID}`)
+    .then(response => {
+        setFriendReq(response.data);
+    })
+}
+
+var friendReqNum = 0;
 
   return (
     <div>
       <header>
         <div className="header-left">
-          <div className="logo">
-            <a href="/home">
-              <img src={require("../images/BMW_logo_(gray).png")} alt="" />{" "}
-            </a>
-          </div>
+        {friendRequests.map((count)=>{
+              friendReqNum++
+            })}
+            {friendReqNum > 0 
+            ?
+            <div className="logo">
+                <div className="rounded-circle shadow-1-strong me-3" style={{backgroundColor : 'red' , width:'15px' , height : '15px' , position: 'absolute',right: '5px',top: '5px', color : 'white' , fontSize : '12px'}}><p style={{marginLeft : '4px'}}>{friendReqNum}</p></div>
+                <a href='/home'><img src={require('../images/logo.png')} alt="" /></a>
+            </div>
+          :
+            <div className="logo">
+                <a href='/home'><img src={require('../images/logo.png')} alt="" /></a>
+            </div>
+          }
 
           <div className="searchContainer">
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
               type="text"
-              placeholder="Search facebook"
+              placeholder="Search Sociala"
               className="searchInput"
             />
           </div>

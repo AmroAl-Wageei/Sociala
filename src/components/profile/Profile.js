@@ -257,7 +257,7 @@ function Profile() {
                 <div className="profileRight">
                     <div className="profilerightTop">
                         <div className="profileCover">
-                            <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
+                            <img className='profileCoverImg' src="https://media.inter.it/mp4/im/Share_Cover.jpg" alt="" />
                             <img className='profileUserImg' src={require(`../images/${user.image}`)} alt="" />
                         </div>
                         <div className="profileInfo">

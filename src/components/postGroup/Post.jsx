@@ -8,14 +8,9 @@ import { FaEdit } from "react-icons/fa";
 
 import { AiFillLike } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
-export default function Post( props ) {
-  // const [like,setLike] = useState(post.like)
-  // const [isLiked,setIsLiked] = useState(false)
 
-  // const likeHandler =()=>{
-  //   setLike(isLiked ? like-1 : like+1)
-  //   setIsLiked(!isLiked)
-  // }
+
+export default function Post( props ) {
 
 
   const {profile_id} = useParams();
@@ -28,18 +23,26 @@ export default function Post( props ) {
   const [posts , setPosts] = useState([]);
   const [comments , setComments] = useState([]);
   const [likes , setLikes] = useState([]);
+  const [user , setUser] = useState([]);
 
   const [file, setFile] = useState(null);
 
  
   useEffect(()=>{
     getPosts();
-    // getComments();
+    getComments();
     getLikes();
+    getUser();
   } , [])
  // Posts
 
 
+ function getUser(){
+  axios.get(`http://localhost:80/platform/react_project/userProfile.php/${current_ID}`)
+  .then(response => {
+      setUser(response.data);
+  })
+}
 
 async function getPosts(){
   await axios.get(`http://localhost:80/platform/react_project/postsGroup.php/${group_id}`)
@@ -49,7 +52,11 @@ async function getPosts(){
     await axios.get(`http://localhost:80/platform/react_project/likes.php/`)
     .then(response => {
         setLikes(response.data);
-    })
+    }).then(async function getComments(){
+      await axios.get(`http://localhost:80/platform/react_project/comments.php/`)
+      .then(response => {
+          setComments(response.data);
+      })})
   })
 }
 
@@ -117,7 +124,7 @@ formEditData.append("file", file);
 
 try {
   const response = await axios.post(
-    "http://localhost:80/platform/react_project/postEditGroup.php", formEditData
+    "http://localhost:80/platform/react_project/postEdit.php", formEditData
   );
   getPosts();
   window.location.reload(true)
@@ -146,63 +153,69 @@ const canclePostEdit = (id) => {
 
 
 
-//    function getComments(){
-//     axios.get(`http://localhost:80/platform/react_project/commentsGroup.php/`)
-//     .then(response => {
-//         setComments(response.data);
-//     })
-// }
+   function getComments(){
+    axios.get(`http://localhost:80/platform/react_project/comments.php/`)
+    .then(response => {
+        setComments(response.data);
+    })
+}
 
-//   const handleCreateComment = (e) => {
-//       e.preventDefault();
-//       axios.post('http://localhost:80/platform/react_project/commentsGroup.php/' , inputs).then((res)=> {
-//         getComments();
+  const handleCreateComment = (e) => {
+      e.preventDefault();
+      axios.post('http://localhost:80/platform/react_project/comments.php/' , inputs).then(document.getElementById(inputs.post_id).value = "").then(
+        getPosts()
+      )
+  }
 
-//       }
-//       )
-//   }
+  const deleteComment = (id) => {
+    axios.delete(`http://localhost:80/platform/react_project/comments.php/${id}`).then(function(response){
+      getComments();
+    })
+  }
 
-//   const deleteComment = (id) => {
-//     // console.log(id);
-//     axios.delete(`http://localhost:80/platform/react_project/commentsGroup.php/${id}`).then(function(response){
-//       getComments();
-//     })
-//   }
+  const editComment = (id) => {
+    document.getElementById(`comment${id}`).style.display = 'none';
+    document.getElementById(`editCommentForm${id}`).style.display = 'block';
+    document.getElementById(`editCommentBTN${id}`).style.display = 'none';
+  }
 
-//   const editComment = (id) => {
-//     document.getElementById(`comment${id}`).style.display = 'none';
-//     document.getElementById(`editCommentForm${id}`).style.display = 'block';
-//     document.getElementById(`editCommentBTN${id}`).style.display = 'none';
-//   }
+  const handleEditComment = (id) => {
+    const comment_id = id;
+    const value = document.getElementById(`editCommentInput${id}`).value;
+    setInputs({'comment_content': value , 'comment_id' : comment_id})
+  }
 
-//   const handleEditComment = (id) => {
-//     const comment_id = id;
-//     const value = document.getElementById(`editCommentInput${id}`).value;
-//     setInputs({'comment_content': value , 'comment_id' : comment_id})
-//   }
+  const handleEditCommentSubmit = (e) => {
+    e.preventDefault();
+    axios.put('http://localhost:80/platform/react_project/comments.php/' , inputs).then(
+      getPosts()
+    )
+  }
 
-//   const handleEditCommentSubmit = (e) => {
-//     e.preventDefault();
-//     axios.put('http://localhost:80/platform/react_project/commentsGroup.php/' , inputs).then(()=>{
+  const foucsOnComment = (id) => {
+    document.getElementById(id).focus();
+  }
+  const updatePostEdit = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    document.getElementById(`imgPost${id}`).style.display = "block";
+    getPosts();
+  };
 
-//       getComments();
-//     }
-
-//       // window.location.assign('/')
-//     )
-//   }
-
-//   const foucsOnComment = (id) => {
-//     document.getElementById(id).focus();
-//   }
-
-  
-//   const cancleCommentEdit = (id) => {
-//     document.getElementById(`comment${id}`).style.display = 'block';
-//     document.getElementById(`editCommentForm${id}`).style.display = 'none';
-//     document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
-    
-//   }
+  const cancleCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = 'block';
+    document.getElementById(`editCommentForm${id}`).style.display = 'none';
+    document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
+  }
+  const updateCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = "block";
+    document.getElementById(`editCommentForm${id}`).style.display = "none";
+    document.getElementById(`editCommentBTN${id}`).style.display =
+      "inline-block";
+      getComments();
+      getPosts();
+  };
 
 
 
@@ -222,209 +235,42 @@ const canclePostEdit = (id) => {
   const likePost = (e) => {
     e.preventDefault();
       axios.post('http://localhost:80/platform/react_project/likes.php/' , inputs).then(
-        // window.location.reload(true)
         getPosts()
-        ).then(console.log('second then'))
+        )
   }
   const removeLikePost = async (e) => {
     e.preventDefault();
       await axios.post('http://localhost:80/platform/react_project/likeDelete.php/' , inputs).then(
-        // window.location.reload(true)
         getPosts()
       )
   }
 
 
+  function changeColor(id){
+    document.getElementById(id).style.color = 'red';
+  }
+  function returnColor(id){
+    document.getElementById(id).style.color = 'blue';
+  }
+  function showMoreComments(id){
+    document.getElementById(`littleCommentsOnPost${id}`).style.display = 'none';
+    document.getElementById(`allCommentsOnPost${id}`).style.display = 'block';
+  }
+  function showLittleComments(id){
+    document.getElementById(`littleCommentsOnPost${id}`).style.display = 'block';
+    document.getElementById(`allCommentsOnPost${id}`).style.display = 'none';
+  }
 
 
 
+
+  
   var flagLike = false;
   var like_count = 0;
+  var comment_count = 0;
+  var comment_count_show = 0;
 
   return (
-
-    // <>
-    // { posts.map((post,index) => {
-    //   return (
-    //     <div key={index}>
-    // <div className="post" >
-    //   <div className="postWrapper">
-    //     <div className="postTop">
-    //       <div className="postTopLeft">
-    //         <img
-    //           className="postProfileImg"
-    //           src={require(`../images/icon.png`)}
-    //           alt=""
-    //         />
-    //         <span className="postUsername">
-    //         {post.name}
-    //         </span>
-    //         <span className="postDate">{post.created_at}</span>
-    //       </div>
-    //       <div className="postTopRight">
-    //       {(post.user_id === current_ID) || (admin_group===current_ID) ?
-    //         <div>
-    //           <button onClick={() => {deletePost(post.post_id)}}>Delete Your Post</button>
-    //           <button id={`editPostBTN${post.post_id}`} onClick={() => {editPost(post.post_id)}}><FaEdit /></button>
-    //         </div>
-    //         : null }
-    //       </div>
-    //     </div>
-    //     {(post.post_image !== 'a') ? 
-    //     <div className="postCenter">
-    //       <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-    //       <form id={`editPostForm${post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
-    //       <textarea 
-    //       style={{width: '50vw'}} 
-    //       type="text" 
-    //       defaultValue={post.content} 
-    //       id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)}/>
-
-    //       <br />
-
-    //       <input 
-    //       type="file"
-    //       id="file"
-    //       onChange={(e) => setFile(e.target.files[0])}/>
-
-    //       <button type='submit'>Update</button>
-    //       <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(post.post_id)}} type='button'>Cancle</button>
-    //   </form>
-    //       <img className="postImg" src={require(`../images/${post.post_image}`)} alt="" id={`imgPost${post.post_id}`}/>
-    //     </div>
-    //       : 
-    //       <div className="postCenter">
-
-    //       <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-    //       <form id={`editPostForm${post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
-
-    //       <textarea 
-    //         style={{width: '50vw'}} 
-    //         type="text" 
-    //         defaultValue={post.content} 
-    //         id={`editPostInput${post.post_id}`} 
-    //         onChange={() => handleEditPost(post.post_id)}/>
-
-    //       <input 
-    //         type="file"
-    //         id="file"
-    //         onChange={(e) => setFile(e.target.files[0])}/>
-
-    //       <br />
-
-    //       <button type='submit'>Update</button>
-    //       <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(post.post_id)}}  type='button'>Cancle</button>
-
-    //   </form>
-
-    //       </div>
-    // }
-    //     <div className="postBottom">
-    //       <div className="postBottomLeft">
-    //       {
-    //                 likes.map((like , index_like) => {
-    //                   if (like.user_id == current_ID && like.post_id == post.post_id){
-    //                     return ( flagLike = true )
-    //                   }})}
-
-    //                   {( flagLike == true ) ?
-    //                           <form action="" onSubmit={removeLikePost}>
-    //                             <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-    //                               <i className="far fa-thumbs-up me-2" />
-    //                               <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
-    //                               <p>{current_ID}/current - {post.post_id}/post</p>
-    //                             </button>
-    //                           </form>
-    //                   :
-    //                           <form action="" onSubmit={likePost}>
-    //                               <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-    //                                 <i className="far fa-thumbs-up me-2" />
-    //                                 <p className="mb-0">Like</p>
-    //                                 <p>{current_ID}/current - {post.post_id}/post</p>
-    //                               </button>
-    //                           </form>
-    //                   }
-    //         {likes.map((count)=>{
-    //           if(count.post_id == post.post_id){
-    //             like_count++;
-    //           }
-    //         })}
-    //         <span className="postLikeCounter">{like_count} people like it</span>
-    //       </div>
-    //       <div className="postBottomRight">
-    //         <span className="postCommentText">{post.comment} comments</span>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
- 
-    //   {/* <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}> */}
-    //               {/* <div className="w-100">
-    //               { comments.map((comment,index) => {
-    //                 if (comment.post_id === post.post_id){
-    //                 return (
-    //                 <div key={index}>
-    //                     <div style={{display : 'flex' , justifyContent : 'space-between'}}>
-    //                       <div>
-    //                         <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-    //                         <span>{comment.name}</span>
-    //                       </div>
-    //                       {(comment.user_id === current_ID) ||(admin_group===current_ID)? 
-    //                       <div>
-    //                           <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
-    //                           <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
-    //                       </div> : (post.user_id === current_ID) ?
-    //                       <div>
-    //                           <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
-    //                       </div>
-    //                       : null }
-    //                     </div>
-    //                     <br />
-    //                     <div className="form-outline w-100">
-
-
-
-
-
-    //                         <p id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
-    //                         <form id={`editCommentForm${comment.comment_id}`} action="" style={{display : 'none'}} onSubmit={handleEditCommentSubmit}>
-    //                           <input type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)}/>
-    //                           <button type='submit'>Update</button>
-    //                           <button style={{background : 'red' , color : 'white'}} onClick={()=>{cancleCommentEdit(comment.comment_id)}}  type='button'>Cancle</button>
-    //                         </form>
-
-
-
-
-
-
-    //                         <p>{comment.comment_created_at}</p>
-    //                     </div>
-    //                     <hr />
-    //                 </div>
-    //                 )}})}
-    //               </div> */}
-    //               {/* <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
-    //                   <div className="d-flex flex-start w-100">
-    //                     <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-    //                     <form className="form-outline w-100" onSubmit={handleCreateComment}>
-    //                       <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{background: '#fff'}} onChange={handleChange}/>
-    //                       <button type="submit" className="btn btn-primary btn-sm">Post comment</button>
-    //                     </form>
-    //                   </div>
-    //               </div> */}
-                  
-    //             </div>
-    //               // </div>
-    //               )})}
-    // </>
-
-
-
-
-
-
-
 
     <>
     <div className='post'>
@@ -496,7 +342,9 @@ const canclePostEdit = (id) => {
 
                     <br />
 
-                    <button type='submit'>Update</button>
+                    <button type='submit' onClick={() => {
+                                    updatePostEdit(props.post.post_id);
+                                  }}>Update</button>
                     <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(props.post.post_id)}}  type='button'>Cancle</button>
 
                 </form>
@@ -543,11 +391,129 @@ const canclePostEdit = (id) => {
               }
             })}
             <span className="postLikeCounter">{like_count} People like it</span>
-          </div>
-          <div className="postBottomRight">
-            <a href={`/profile/${profile_id}/post/${props.post.post_id}`}><span className="postCommenttext">Comments</span></a>
-          </div>
-        </div>
+
+          <a onClick={()=>foucsOnComment(props.post.post_id)} href="#!" className="d-flex align-items-center me-3">
+                      <i className="far fa-comment-dots me-2" />
+                      <p style={{display : 'none'}}>{comment_count = 0}</p>
+                      {comments.map((count)=>{
+                        if (count.post_id == props.post.post_id){
+                        comment_count++
+                        }
+                      })}
+                      <p className="mb-0">Comment({comment_count})</p>
+                    </a>
+                  </div>
+                </div>
+                <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
+
+
+                <div className="w-100" id={`littleCommentsOnPost${props.post.post_id}`}>
+                  <p style={{display : 'none'}}>{comment_count_show = 0}</p>
+                  { comments.map((comment,index_comment) => {
+                    if (comment.post_id == props.post.post_id){
+                      if (comment_count_show < 1){
+                        comment_count_show++
+                    return (
+                      <div key={index_comment}>
+                        <div style={{display : 'flex' , justifyContent : 'space-between'}}>
+                          <div>
+                            <img className="rounded-circle shadow-1-strong me-3" alt='' src={require(`../images/${comment.image}`)} style={{width : "3vw" , height : "3vw"}} />
+                            <span>{comment.first_name}</span>
+                          </div>
+                          {(comment.user_id == current_ID) ? 
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                              <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
+                          </div> : (props.post.user_id == current_ID) ?
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                          </div>
+                          : null }
+                        </div>
+                        <br />
+                        <div className="form-outline w-100">
+
+                            <p id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
+                            <form id={`editCommentForm${comment.comment_id}`} action="" style={{display : 'none'}} onSubmit={handleEditCommentSubmit}>
+                              <input type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)}/>
+                              <button type='submit' onClick={() => {
+                                              updateCommentEdit(
+                                                comment.comment_id
+                                              );
+                                            }} >Update</button>
+                              <button style={{background : 'red' , color : 'white'}} onClick={()=>{cancleCommentEdit(comment.comment_id)}}  type='button'>Cancle</button>
+                            </form>
+
+                            <p>{comment.comment_created_at}</p>
+                        </div>
+                        <hr />
+                    </div>
+                    )}}})}
+                    {(comment_count > comment_count_show)?
+                      <div id='showMoreComments' style={{cursor : 'pointer' , color : 'blue'}} onMouseOver={()=>{changeColor('showMoreComments')}} onMouseOut={()=>{returnColor('showMoreComments')}} onClick={()=>{showMoreComments(props.post.post_id)}}>Load more comments</div>
+                      : null  
+                    }
+                  </div>
+
+                  <div className="w-100" id={`allCommentsOnPost${props.post.post_id}`} style={{display : 'none'}}>
+                  <p style={{display : 'none'}}>{comment_count_show = 0}</p>
+                  {comments.map((comment,index_comment) => {
+                    if (comment.post_id == props.post.post_id){
+                    return (
+                      <div key={index_comment}>
+                        <div style={{display : 'flex' , justifyContent : 'space-between'}}>
+                          <div>
+                            <img className="rounded-circle shadow-1-strong me-3" alt='' src={require(`../images/${comment.image}`)} style={{width : "3vw" , height : "3vw"}} />
+                            <span>{comment.first_name}</span>
+                          </div>
+                          {(comment.user_id == current_ID) ? 
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                              <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
+                          </div> : (props.post.user_id == current_ID) ?
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                          </div>
+                          : null }
+                        </div>
+                        <br />
+                        <div className="form-outline w-100">
+
+                            <p id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
+                            <form id={`editCommentForm${comment.comment_id}`} action="" style={{display : 'none'}} onSubmit={handleEditCommentSubmit}>
+                              <input type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)}/>
+                              <button type='submit'>Update</button>
+                              <button style={{background : 'red' , color : 'white'}} onClick={()=>{cancleCommentEdit(comment.comment_id)}}  type='button'>Cancle</button>
+                            </form>
+
+                            <p>{comment.comment_created_at}</p>
+                        </div>
+                        <hr />
+                    </div>
+                    )}})}
+                    {(comment_count > comment_count_show)?
+                      <div id='showLittleComments' style={{cursor : 'pointer' , color : 'blue'}} onMouseOver={()=>{changeColor('showMoreComments')}} onMouseOut={()=>{returnColor('showMoreComments')}} onClick={()=>{showLittleComments(props.post.post_id)}}>Load less comments</div>
+                      : null  
+                    }
+                  </div>
+
+
+          <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
+                  <div className="d-flex flex-start w-100">
+                  {user.map((Oneuser)=>{
+                   return(              
+                    <img className="rounded-circle shadow-1-strong me-3" src={require(`../images/${Oneuser.image}`)} alt="avatar" style={{width : "3vw" , height : "3vw"}} />
+                    )
+                    })}
+                    <form className="form-outline w-100" onSubmit={handleCreateComment}>
+                      <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{background: '#fff'}} onChange={handleChange}/>
+                      <button type="submit" className="btn btn-primary btn-sm">Post comment</button>
+                    </form>
+                  </div>
+                  </div>
+                  <div className="float-end mt-2 pt-1">
+              </div>
+            </div>
       </div>
     </>
 
