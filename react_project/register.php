@@ -31,6 +31,7 @@ switch ($method) {
             $query2 = $connect->prepare($stmt2);
             $query2->execute();
             $getData = $query2->fetch(PDO::FETCH_ASSOC);
+            echo json_encode(['first_name'=>$getData['first_name'] , 'last_name'=>$getData['last_name'] , 'id'=>$getData['id'] , 'email'=>$getData['email'] ]);
         } else {
             echo 'Your Email is Already Exist';
         }

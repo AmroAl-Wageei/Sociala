@@ -88,9 +88,12 @@ export default function Rightbar({ profile }) {
       <div>
         <h3 className="rightbarTitle">
           User information{" "}
+          {profile_id == current_ID
+          ?
           <a href={`/profile/${profile_id}/edit`}>
             <button className="EditProfilee">Edit</button>
           </a>
+          : null} 
         </h3>
         <div className="rightbarInfo">
           {user.map((user) => {
@@ -125,7 +128,7 @@ export default function Rightbar({ profile }) {
             if (
               i < 6 &&
               friend["status"] === "accepted" &&
-              friend["user_id"] !== profile_id
+              friend["user_id"] != profile_id
             ) {
               return (
                 <a href={`/profile/${friend.user_id}`}>
@@ -144,7 +147,7 @@ export default function Rightbar({ profile }) {
             }
           })}
         </div>
-        {profile_id === current_ID ? (
+        {profile_id == current_ID ? (
           <div className="rightbarWrapper">
             <h4 className="rightbarTitle">
               Friend Requests ({friendRequests.length})

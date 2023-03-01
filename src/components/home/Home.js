@@ -407,7 +407,6 @@ function Home() {
                               </div>
                             ) : null}
                           </div>
-                              {post.content}
                           {post.post_image != "a" ? (
                             <div>
                               <p
