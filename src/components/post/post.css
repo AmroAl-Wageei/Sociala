@@ -1,0 +1,199 @@
+.post {
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  margin: 30px 0;
+}
+
+.label {
+  display: inline-block;
+  background-color: gray;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.postWrapper {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.postTopRight {
+  width: 10px;
+}
+
+.postTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postTopLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.postProfileImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.postUsername {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 10px;
+}
+
+.postDate {
+  font-size: 12px;
+  color: rgb(193, 190, 190);
+  font-weight: 400;
+  margin-left: 50px;
+}
+.BTNPOST {
+  display: flex;
+  flex-direction: row;
+}
+
+.BtnDeletePoost {
+  width: 150%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(195, 59, 54);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+.CancelBtn {
+  width: 30%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(195, 59, 54);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.BTNEDITPOST {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+.BTNEDITPOST-BTN {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.UpdateBtn {
+  width: 30%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(42, 39, 65);
+  border-radius: 5px;
+  border: none;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.textEditPost {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(48, 125, 149);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 20px;
+}
+.BtnDEditPoost {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(48, 125, 149);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 30px;
+}
+.postCenter {
+  margin: 20px 0;
+}
+
+.postImg {
+  margin-top: 20px;
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.postBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postBottomLeft {
+  display: flex;
+  align-items: center;
+}
+.postText {
+  margin-left: 70px;
+  color: gray;
+  font-size: 15px;
+}
+
+.likeIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.postLikeCounter {
+  font-size: 15px;
+}
+
+.postCommenttextLink {
+  text-decoration: none;
+  list-style: none;
+  color: gray;
+}
+.postCommenttext {
+  cursor: pointer;
+  font-size: 15px;
+  margin-right: 65px;
+}
+
+.like-icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

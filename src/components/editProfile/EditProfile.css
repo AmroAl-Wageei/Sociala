@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+.profileRight {
+  background-color: rgb(253, 253, 253);
+}
+.feed-form {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  width: 00px;
+}
+.label{
+  display: inline-block;
+  background-color:gray;
+  color: white;
+  padding: 0.4rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+}
+
+.feed-form input {
+  width: 160px;
+  height: 54px;
+  border-radius: 5px;
+  background: white;
+  margin-bottom: 15px;
+  margin-left: 30px;
+  border: none;
+  padding: 0 20px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #4b4b4b;
+}
+.feed-form label {
+  width: 130px;
+  height: 54px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background: white;
+  padding: 0 20px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #4b4b4b;
+}
+
+.button_submit:hover,
+.button_submit1:hover,
+.feed-form input:hover {
+  transform: scale(1.009);
+  box-shadow: 0px 0px 3px 0px #212529;
+}
+
+.BTN {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+a .button_submit {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(48, 125, 149);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 20px;
+}
+.button_submit1 {
+  width: 30%;
+  height: 40px;
+  font-size: 14px;
+  color: white;
+  background: rgb(27, 36, 76);
+  border-radius: 5px;
+  border: none;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.profileCover .image {
+  width: 150%;
+  height: 100%;
+  border-radius: 100%;
+  padding: 30px;
+  margin-top: 110px;
+  margin-left: 50px;
+}

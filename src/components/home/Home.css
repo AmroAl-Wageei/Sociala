@@ -1,0 +1,16 @@
+.homeContainerrr {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.one {
+  width: 20%;
+}
+.two {
+  width: 50%;
+  margin-top: 100px;
+}
+.three {
+  width: 20%;
+}
