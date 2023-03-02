@@ -208,19 +208,6 @@ function Profile() {
         })
       }
 
-
-    // console.log(users , 'users')
-    // console.log(acceptrdFriends , 'friends')
-    // console.log(pendingFriends , 'pending requests')
-    // console.log(requestFriends , 'request friends')
-
-    // console.log(friend)
-
-    // console.log(user , 'current user')
-    // console.log(users , 'all users')
-    // console.log(friend , 'friends') // Accepted and Pending Requests (friend_id = 1 = current_user)
-    // console.log(pendingFriends , 'pending requests') // user_id = current
-    // console.log(requestFriends , 'requests come to ') // user_id = current
     
     var i = 1;
     var friendsInArray = [];
@@ -238,11 +225,6 @@ function Profile() {
             {friend.map((OneFriend)=>{
                 friendsInArray.push(OneFriend['friend_id'])
                 friendsInArray.push(OneFriend['user_id'])
-                // console.log(OneFriend['friend_id'] , 'friend id')
-                // console.log(OneFriend['user_id'] , 'user_id id')
-                // console.log(OneFriend['status'] , 'status id')
-                // console.log(current_ID , 'current_ID')
-                // console.log(profile_id , 'profile_id')
                 
                 if(i===1){  
 

@@ -682,7 +682,7 @@ function Home() {
                                               )
                                             }
                                           />
-                                          <button type="submit"onClick={() => {
+                                          <button type="submit" onClick={() => {
                                               updateCommentEdit(
                                                 comment.comment_id
                                               );
