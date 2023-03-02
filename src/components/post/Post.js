@@ -93,6 +93,7 @@ export default function Post({ post }) {
     document.getElementById(`post${id}`).style.display = "none";
     document.getElementById(`editPostForm${id}`).style.display = "block";
     document.getElementById(`editPostBTN${id}`).style.display = "none";
+    document.getElementById(`drpDwn${id}`).style.display = "none";
   };
 
   const handleEditPost = (id) => {
@@ -164,6 +165,35 @@ export default function Post({ post }) {
     document.getElementById(`editCommentBTN${id}`).style.display = "none";
   };
 
+
+  const updatePostEdit = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    document.getElementById(`drpDwn${id}`).style.display = "block";
+    getPosts();
+  };
+
+
+  const updatePostEditImage = (id) => {
+    document.getElementById(`post${id}`).style.display = "block";
+    document.getElementById(`editPostForm${id}`).style.display = "none";
+    document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
+    document.getElementById(`imgPost${id}`).style.display = "block";
+    document.getElementById(`drpDwn${id}`).style.display = "block";
+    getPosts();
+  };
+
+  const updateCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = "block";
+    document.getElementById(`editCommentForm${id}`).style.display = "none";
+    document.getElementById(`drpDwnCom${id}`).style.display = "block";
+    document.getElementById(`editCommentBTN${id}`).style.display =
+      "inline-block";
+      getComments();
+      getPosts();
+  };
+
   const handleEditComment = (id) => {
     const comment_id = id;
     const value = document.getElementById(`editCommentInput${id}`).value;
@@ -185,7 +215,7 @@ export default function Post({ post }) {
     document.getElementById(`post${id}`).style.display = "block";
     document.getElementById(`editPostForm${id}`).style.display = "none";
     document.getElementById(`editPostBTN${id}`).style.display = "inline-block";
-    document.getElementById(`imgPost${id}`).style.display = "block";
+    document.getElementById(`drpDwn${id}`).style.display = "block";
   };
 
   const cancleCommentEdit = (id) => {
@@ -240,7 +270,7 @@ export default function Post({ post }) {
         <div className="postWrapper">
           <div className="postTop">
             <div className="postTopLeft flex">
-              <div>
+              <div style={{marginLeft : '2vw'}}>
                 <img
                   className="postProfileImg"
                   src={require(`../images/${post.image}`)}
@@ -251,9 +281,19 @@ export default function Post({ post }) {
                 </span>
                 <h3 className="postDate">{post.created_at}</h3>
               </div>
+              {post.group_id > 0 ? (
+                                  <p>
+                                    {" "}
+                                    shared this post in{" "}
+                                    <a href={`/groups/${post.group_id}/show`}>
+                                      {post.group_name}
+                                    </a>{" "}
+                                    group
+                                  </p>
+                                ) : null}
               <div>
                 {post.user_id === current_ID ? (
-                  <div style={{ marginLeft: "10%" }}>
+                  <div id={`drpDwn${post.post_id}`} style={{ marginLeft: "27vw" , marginBottom : '6vh' }}>
                     <Dropdown>
                       <Dropdown.Toggle
                         variant="text-dark"
@@ -290,92 +330,95 @@ export default function Post({ post }) {
                   </div>
                 ) : null}
               </div>
-
               {post.post_image !== "a" ? (
                 <div>
-                  <form
-                    id={`editPostForm${post.post_id}`}
-                    action=""
-                    style={{ display: "none" }}
-                    onSubmit={handleEditPostSubmit}
+                <form
+                  id={`editPostForm${post.post_id}`}
+                  action=""
+                  style={{ display: "none" }}
+                  onSubmit={handleEditPostSubmit}
+                >
+                  <textarea
+                 
+                    style={{ width: "40vw" }}
+                    type="text"
+                    defaultValue={post.content}
+                    id={`editPostInput${post.post_id}`}
+                    onChange={() => handleEditPost(post.post_id)}
+                  />
+
+                  <br />
+
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    hidden
+                  />
+
+                  <div className="BTNEDITPOST">
+                  <label className="label" for="file">
+                    <CgSoftwareUpload size={20} />
+                    Choose file
+                  </label>
+                  
+                      <button type="submit" className="UpdateBtn" onClick={() => {
+                          updatePostEditImage(post.post_id);
+                        }}>
+                        Update
+                      </button>
+
+                      <button
+                        style={{ marginLeft : '10px'}}
+                        onClick={() => {
+                          canclePostEdit(post.post_id);
+                        }}
+                        type="button"
+                        className="CancelBtn"
+                      >
+                        Cancle
+                      </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div>
+                <form
+                  id={`editPostForm${post.post_id}`}
+                  action=""
+                  style={{ display: "none" }}
+                  onSubmit={handleEditPostSubmit}
+                >
+                  <textarea
+                    style={{ width: "50vw" }}
+                    type="text"
+                    defaultValue={post.content}
+                    id={`editPostInput${post.post_id}`}
+                    onChange={() => handleEditPost(post.post_id)}
+                  />
+
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+
+                  <br />
+
+                  <button type="submit" onClick={() => {
+                          updatePostEdit(post.post_id);
+                        }}>Update</button>
+                  <button
+                    style={{ background: "red", color: "white" }}
+                    onClick={() => {
+                      canclePostEdit(post.post_id);
+                    }}
+                    type="button"
                   >
-                    <textarea
-                   
-                      style={{ width: "40vw" }}
-                      type="text"
-                      defaultValue={post.content}
-                      id={`editPostInput${post.post_id}`}
-                      onChange={() => handleEditPost(post.post_id)}
-                    />
-
-                    <br />
-
-                    <input
-                      type="file"
-                      id="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      hidden
-                    />
-
-                    <div className="BTNEDITPOST">
-                    <label className="label" for="file">
-                      <CgSoftwareUpload size={20} />
-                      Choose file
-                    </label>
-
-                        <button type="submit" className="UpdateBtn">
-                          Update
-                        </button>
-
-                        <button
-                          style={{ marginLeft : '10px'}}
-                          onClick={() => {
-                            canclePostEdit(post.post_id);
-                          }}
-                          type="button"
-                          className="CancelBtn"
-                        >
-                          Cancle
-                        </button>
-                    </div>
-                  </form>
-                </div>
-              ) : (
-                <div>
-                  <form
-                    id={`editPostForm${post.post_id}`}
-                    action=""
-                    style={{ display: "none" }}
-                    onSubmit={handleEditPostSubmit}
-                  >
-                    <textarea
-                      style={{ width: "50vw" }}
-                      type="text"
-                      defaultValue={post.content}
-                      id={`editPostInput${post.post_id}`}
-                      onChange={() => handleEditPost(post.post_id)}
-                    />
-
-                    <input
-                      type="file"
-                      id="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                    />
-
-                    <br />
-
-                    <button type="submit">Update</button>
-                    <button
-                      style={{ background: "red", color: "white" }}
-                      onClick={() => {
-                        canclePostEdit(post.post_id);
-                      }}
-                      type="button"
-                    >
-                      Cancle
-                    </button>
-                  </form>
-                </div>
+                    Cancle
+                  </button>
+                </form>
+              </div>
               )}
             </div>
           </div>

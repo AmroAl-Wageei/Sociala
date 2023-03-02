@@ -63,7 +63,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <FirstPageCreated />,
   },
   {
     path: "/groups/:id/show",

@@ -86,15 +86,21 @@ export default function Rightbar({ profile }) {
   const ProfileRightbar = () => {
     return (
       <div>
-        <h3 className="rightbarTitle">
-          User information{" "}
-          {profile_id == current_ID
-          ?
-          <a href={`/profile/${profile_id}/edit`}>
-            <button className="EditProfilee">Edit</button>
-          </a>
-          : null} 
-        </h3>
+        <div style={{display : "flex" , justifyContent : 'space-between'}}>
+          <div> 
+              <h3 className="rightbarTitle">   
+                User information{" "}
+              </h3>
+          </div>
+          <div> 
+              {profile_id == current_ID
+              ?
+              <a href={`/profile/${profile_id}/edit`}>
+                <button style={{width : '100px' , marginRight : '20px' , marginBottom : '5px'}} className="EditProfilee">Edit</button>
+              </a>
+              : null}
+          </div> 
+          </div>
         <div className="rightbarInfo">
           {user.map((user) => {
             return (

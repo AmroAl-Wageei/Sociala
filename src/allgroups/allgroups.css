@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
-
-.Allgroups {
-  flex: 15;
+.Allgroups{
+  flex:15;
+  margin-top: 24px;
+  margin-left: 38px;
 }
 
-.AllgroupsWrapper {
+.AllgroupsWrapper{
   padding: 20px;
 }
 
@@ -35,20 +35,12 @@ body {
   padding: 40px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
-.flexBlog {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 50px 0px;
-}
 
 .blog-heading {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-right: 250px;
 }
 
 .blog-heading span {
@@ -86,6 +78,7 @@ body {
   object-fit: cover;
   object-position: cover;
   /* border-radius: 50%; */
+
 }
 
 .blogText {
@@ -115,15 +108,16 @@ body {
 }
 
 .blogBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 15px 0px;
 }
 
 .blogBtn1 {
-  background-color: green;
+  background-color: #0C6EFC;
+  background-color: #141619b0;
   color: #ffffff;
   width: 100px;
   height: 30px;
@@ -132,11 +126,11 @@ body {
   cursor: pointer;
 }
 .blogBtn1:hover {
-  background-color: rgb(32, 142, 32);
-  color: #ffffff;
+    background-color: #0C6EFC(32, 142, 32);
+    color: #ffffff;
 }
 .blogBtn2 {
-  background-color: rgb(177, 63, 65);
+  background-color: #0C6EFC(177, 63, 65);
   color: #ffffff;
   width: 150px;
   height: 30px;
@@ -146,8 +140,8 @@ body {
   margin-left: 10px;
 }
 .blogBtn2:hover {
-  background-color: rgb(190, 26, 29);
-  color: #ffffff;
+    background-color: #0C6EFC(190, 26, 29);
+    color: #ffffff;
 }
 
 .blogBtn3 {
@@ -161,13 +155,15 @@ body {
   margin-left: 30px;
 }
 .blogBtn3:hover {
-  background-color: #5391e1;
-  color: #ffffff;
+    background-color: #5391e1;
+    color: #ffffff;
 }
+
 
 /* form create group */
 
 /*  Create Group Button */
+
 
 .BtnAdd {
   padding: 1.3em 3em;
@@ -186,8 +182,8 @@ body {
 }
 
 .BtnAdd:hover {
-  background-color: #23c483;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background-color: #0C6EFC;
+  box-shadow: 0px 15px 20px #0C6EFC(46, 229, 157, 0.4);
   color: #fff;
   transform: translateY(-7px);
 }
@@ -196,41 +192,58 @@ body {
   transform: translateY(-1px);
 }
 
+
 /* ########################################################################### */
+
 
 /* Group Form */
 
+
 #form {
-  background-color: #23c483;
+  background-color: #ecf0ee;
   padding: 50px;
-  width: 400px;
+  width: 400px;;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
+
 }
+/* .label{
+  display: inline-block;
+  background-color:gray;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  width: 100%;
+font-size: ;
+
+} */
 .feed-form {
-  margin-top: 36px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   width: 300px;
+  
 }
 
 .feed-form input {
-  height: 54px;
+  height: 40px;
+  width: 100%;
+  margin: 15px auto;
   border-radius: 5px;
   background: white;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border: none;
-  padding: 0 20px;
   font-weight: 300;
   font-size: 14px;
-  color: #4b4b4b;
+  color: #4B4B4B;
 }
 
-.button_submit:hover,
-.feed-form input:hover {
+.button_submit:hover, .feed-form input:hover {
   transform: scale(1.009);
   box-shadow: 0px 0px 3px 0px #212529;
 }
@@ -240,11 +253,12 @@ body {
   height: 54px;
   font-size: 14px;
   color: white;
-  background: red;
+  background:  #0C6EFC;
   border-radius: 5px;
   border: none;
   font-weight: 500;
   text-transform: uppercase;
 }
+
 
 /* ########################################################################### */
